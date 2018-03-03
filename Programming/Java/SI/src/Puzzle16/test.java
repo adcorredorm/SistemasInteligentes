@@ -13,7 +13,7 @@ public class test {
         }
     }
 
-    public static void imprimir_Vector(Vector<NodoPuzzle> V){
+    private static void imprimir_Vector(Vector<NodoPuzzle> V){
         NodoPuzzle aux;
         for(int i = 0; i < V.size(); i++){
             aux = V.get(i);
@@ -22,22 +22,29 @@ public class test {
         }
     }
 
-    public static int[] encontrar_zero(int[][] M){
-        for(int i = 0; i < M.length; i++){
-            for(int j = 0; j < M[0].length; j++) if(M[i][j] == 0) return new int[]{i,j};
+    public static NodoPuzzle generarNodoPrueba(int movimientos){
+        int random;
+        NodoPuzzle nodo = new NodoPuzzle();
+
+        for(int i = 0; i < movimientos; i++){
+            random = (int) Math.floor(Math.random()*4);
+            nodo = Sucesores.sucesor(nodo, random);
         }
-        return new int[]{-1, -1};
+
+        return nodo;
     }
 
     public static void main(String[] args) {
 
-        BFS<NodoPuzzle> b = new BFS<NodoPuzzle>(new Sucesores<NodoPuzzle>(), new Objetivo<NodoPuzzle>());
+        DFS<NodoPuzzle> b = new DFS<NodoPuzzle>(new Sucesores<NodoPuzzle>(), new Objetivo<NodoPuzzle>());
 
-        int [][] M = {{1,2,3,4},{5,6,7,8},{9,0,11,12},{13,10,14,15}};
+        int [][] M = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,0,14,15}};
 
-        Vector<NodoPuzzle> V = b.aplicar(new NodoPuzzle(M, encontrar_zero(M)[0], encontrar_zero(M)[1])).getPath();
+        Vector<NodoPuzzle> V = b.aplicar(generarNodoPrueba(5)).getPath();
 
         imprimir_Vector(V);
+
+        System.out.println("Numero de movimientos realizados: " + V.size());
 
     }
 

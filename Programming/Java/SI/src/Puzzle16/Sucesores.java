@@ -12,7 +12,7 @@ public class Sucesores<T> implements Sucesor<NodoPuzzle>{
     public static final int LEFT = 2;
     public static final int RIGHT = 3;
 
-    public NodoPuzzle sucesor(NodoPuzzle estado, int action) {
+    public static NodoPuzzle sucesor(NodoPuzzle estado, int action) {
 
         int[][] M = estado.getPuzzle();
         int[] pos = estado.getPos();
@@ -65,9 +65,6 @@ public class Sucesores<T> implements Sucesor<NodoPuzzle>{
 
         for(int i = 0; i < 4; i++){
             e = sucesor(estado, i);
-
-            //test.imprimir_Matriz(e.getPuzzle());
-            //System.out.println(e.getPos()[0] + " " + e.getPos()[1] + "\n");
 
             if(!e.equals(estado)) V.add(new EstAcc<>(e, i));
         }
