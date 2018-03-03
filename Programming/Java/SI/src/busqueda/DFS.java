@@ -1,8 +1,8 @@
 package busqueda;
 
 public class DFS<T> extends Busqueda<T> {
-    public DFS(Sucesor<T> _sucesor, Goal<T> _objetivo ){
-        super( _sucesor, _objetivo);
+    public DFS(Sucesor<T> _sucesor, Goal<T> _objetivo, int max_prof ){
+        super( _sucesor, _objetivo, max_prof);
     }
 
     public ColeccionBusqueda<T> coleccion(){
