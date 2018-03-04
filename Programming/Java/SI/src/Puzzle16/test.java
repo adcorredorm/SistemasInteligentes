@@ -40,13 +40,26 @@ public class test {
 
     public static void main(String[] args) {
 
-        DFSIterado<NodoPuzzle> b = new DFSIterado<>(new Sucesores<NodoPuzzle>(), new Objetivo(), 20);
+        Sucesores<NodoPuzzle> s = new Sucesores<>();
+        Objetivo o = new Objetivo();
+        int max_prof = 15;
 
-        NodoPuzzle nodo = generarNodoPrueba(15);
+        NodoPuzzle nodo = generarNodoPrueba(max_prof);
 
-        Arco<NodoPuzzle> rta = b.aplicar(nodo);
+        BFS<NodoPuzzle> bfs = new BFS<>(s, o, max_prof);
+        DFS<NodoPuzzle> dfs = new DFS<>(s, o, max_prof);
+        DFSIterado<NodoPuzzle> dfsi = new DFSIterado<>(s, o, max_prof);
+        CostoUniforme<NodoPuzzle> cu = new CostoUniforme<>(s, o, max_prof);
 
-        imprimir_Rta(nodo, rta);
+        System.out.println(bfs.aplicar(nodo).costoTotal());
+        System.out.println(dfs.aplicar(nodo).costoTotal());
+        System.out.println(dfsi.aplicar(nodo).costoTotal());
+        System.out.println(cu.aplicar(nodo).costoTotal());
+
+        System.out.println();
+
+        //imprimir_Rta(nodo, bfs.aplicar(nodo));
+        //imprimir_Rta(nodo, cu.aplicar(nodo));
 
     }
 }
