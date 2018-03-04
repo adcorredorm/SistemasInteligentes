@@ -1,4 +1,6 @@
-package busqueda;
+package busqueda.DataStructures;
+
+import busqueda.Arco;
 
 public class ColaBusqueda<T> extends ListaBusqueda<T> {
     public void adicionar( Arco<T> a ){

@@ -2,26 +2,22 @@ package busqueda;
 
 import java.util.Vector;
 
-public class Arco<T> {
+public class Arco<T>{
     protected T estado;
-    protected Vector<T> path;
-    protected int accion;
+    protected Vector<Accion> path;
+    protected double costoTotal;
 
-    public Arco( T estado, Vector<T> path, int accion ){
+    public Arco( T estado, Vector<Accion> path, double costoTotal ){
         this.estado = estado;
         this.path = path;
-        this.accion = accion;
+        this.costoTotal = costoTotal;
     }
 
     public T getEstado(){ return estado; }
-    public Vector<T> getPath(){
-        if(path == null) path = new Vector<>();
 
-        Vector<T> p = new Vector<>(path.size());
-        for(T e: path) p.addElement(e);
-        p.addElement(estado);
-
-        return p;
+    public Vector<Accion> getPath(){
+        return (Vector<Accion>)path.clone();
     }
-    public int getAccion(){ return accion; }
+    public double costoTotal(){ return costoTotal; }
+
 }

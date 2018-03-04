@@ -13,13 +13,17 @@ public class test {
         }
     }
 
-    private static void imprimir_Vector(Vector<NodoPuzzle> V){
-        NodoPuzzle aux;
-        for(int i = 0; i < V.size(); i++){
-            aux = V.get(i);
-            imprimir_Matriz(aux.getPuzzle());
-            System.out.println("(" + aux.getPos()[0] + "," + aux.getPos()[1] + ")\n");
+    private static void imprimir_Rta(NodoPuzzle inicial, Arco<NodoPuzzle> rta){
+
+        imprimir_Matriz(inicial.getPuzzle());
+
+        for(Accion a : rta.getPath()){
+            System.out.println();
+            inicial = Sucesores.sucesor(inicial, a);
+            imprimir_Matriz(inicial.getPuzzle());
         }
+
+        System.out.println("\nNumero de movimientos realizados: " + rta.costoTotal());
     }
 
     public static NodoPuzzle generarNodoPrueba(int movimientos){
@@ -28,7 +32,7 @@ public class test {
 
         for(int i = 0; i < movimientos; i++){
             random = (int) Math.floor(Math.random()*4);
-            nodo = Sucesores.sucesor(nodo, random);
+            nodo = Sucesores.sucesor(nodo, Sucesores.AccionesPuzzle().get(random));
         }
 
         return nodo;
@@ -36,11 +40,13 @@ public class test {
 
     public static void main(String[] args) {
 
-        DFSIterado<NodoPuzzle> b = new DFSIterado<>(new Sucesores<NodoPuzzle>(), new Objetivo<NodoPuzzle>(), 30);
+        DFSIterado<NodoPuzzle> b = new DFSIterado<>(new Sucesores<NodoPuzzle>(), new Objetivo(), 20);
 
-        Vector<NodoPuzzle> V = b.aplicar(generarNodoPrueba(15)).getPath();
-        imprimir_Vector(V);
-        System.out.println("Numero de movimientos realizados: " + V.size());
+        NodoPuzzle nodo = generarNodoPrueba(15);
+
+        Arco<NodoPuzzle> rta = b.aplicar(nodo);
+
+        imprimir_Rta(nodo, rta);
 
     }
 }

@@ -1,6 +1,6 @@
 package busqueda;
 
-import java.util.Vector;
+import busqueda.DataStructures.ColeccionBusqueda;
 
 public class DFSIterado<T> extends Busqueda<T>{
 

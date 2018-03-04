@@ -1,4 +1,6 @@
-package busqueda;
+package busqueda.DataStructures;
+
+import busqueda.Arco;
 
 public abstract class ListaBusqueda<T> implements ColeccionBusqueda<T> {
     protected class Nodo<T>{

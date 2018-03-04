@@ -1,5 +1,7 @@
 package busqueda;
 
+import busqueda.DataStructures.ColeccionBusqueda;
+
 import java.util.Vector;
 
 public abstract class Busqueda<T> {
@@ -17,15 +19,16 @@ public abstract class Busqueda<T> {
 
     public Arco<T> aplicar( T inicial ){
         ColeccionBusqueda<T> c = coleccion();
-        c.adicionar(new Arco<T>(inicial,null,-1));
+        c.adicionar(new Arco<T>(inicial,new Vector<Accion>(),0.0));
         Arco<T> actual = c.obtener();
+
         while(!c.esvacia() && !objetivo.isGoal(actual.getEstado())){
             c.remover();
 
             if(actual.getPath().size() < max_prof){
-                Vector<EstAcc<T>> h = sucesor.obtener(actual.getEstado());
-                for( EstAcc<T> e:h ){
-                    c.adicionar( new Arco<T>(e.getEstado(), actual.getPath(), e.getAccion()));
+                Vector<Arco<T>> h = sucesor.obtener(actual);
+                for( Arco<T> a:h ){
+                    c.adicionar(a);
                 }
             }
 

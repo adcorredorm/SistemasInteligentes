@@ -2,8 +2,6 @@ package Puzzle16;
 
 public class NodoPuzzle {
 
-
-
     private int[][] puzzle;
     private int posx, posy;
 
@@ -29,7 +27,7 @@ public class NodoPuzzle {
     }
 
     public NodoPuzzle(){
-        this(Objetivo.Default_puzzle, 3, 3);
+        this(Objetivo.Goal_puzzle, 3, 3);
     }
 
 }

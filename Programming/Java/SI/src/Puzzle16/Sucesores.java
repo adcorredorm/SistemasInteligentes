@@ -6,22 +6,31 @@ import java.util.Vector;
 
 public class Sucesores<T> implements Sucesor<NodoPuzzle>{
 
-    public static final int NO_OP = -1;
-    public static final int UP = 0;
-    public static final int DOWN = 1;
-    public static final int LEFT = 2;
-    public static final int RIGHT = 3;
+    //public static final Accion NO_OP = new Accion("NO_OP", 0);
+    public static final Accion UP = new Accion("UP", 1);
+    public static final Accion DOWN = new Accion("DOWN", 1);
+    public static final Accion LEFT = new Accion("LEFT", 1);
+    public static final Accion RIGHT = new Accion("RIGHT", 1);
 
-    public static NodoPuzzle sucesor(NodoPuzzle estado, int action) {
+    public static Vector<Accion> AccionesPuzzle(){
+        Vector<Accion> acciones = new Vector<>(4);
+        acciones.addElement(UP);
+        acciones.addElement(DOWN);
+        acciones.addElement(LEFT);
+        acciones.addElement(RIGHT);
+        return acciones;
+    }
+
+    public static NodoPuzzle sucesor(NodoPuzzle estado, Accion action) {
 
         int[][] M = estado.getPuzzle();
         int[] pos = estado.getPos();
 
         int aux = M[pos[0]][pos[1]];
 
-        switch (action){
+        switch (action.getCode()){
 
-            case UP:
+            case "UP":
                 if(pos[0] == 0)   return estado;
                 else{
                     M[pos[0]][pos[1]] = M[--pos[0]][pos[1]];
@@ -29,7 +38,7 @@ public class Sucesores<T> implements Sucesor<NodoPuzzle>{
                 }
                 break;
 
-            case DOWN:
+            case "DOWN":
                 if(pos[0] == 3)   return estado;
                 else{
                     M[pos[0]][pos[1]] = M[++pos[0]][pos[1]];
@@ -37,7 +46,7 @@ public class Sucesores<T> implements Sucesor<NodoPuzzle>{
                 }
                 break;
 
-            case LEFT:
+            case "LEFT":
                 if(pos[1] == 0)   return estado;
                 else{
                     M[pos[0]][pos[1]] = M[pos[0]][--pos[1]];
@@ -45,7 +54,7 @@ public class Sucesores<T> implements Sucesor<NodoPuzzle>{
                 }
                 break;
 
-            case RIGHT:
+            case "RIGHT":
                 if(pos[1] == 3)   return estado;
                 else{
                     M[pos[0]][pos[1]] = M[pos[0]][++pos[1]];
@@ -58,15 +67,18 @@ public class Sucesores<T> implements Sucesor<NodoPuzzle>{
     }
 
     @Override
-    public Vector<EstAcc<NodoPuzzle>> obtener(NodoPuzzle estado) {
-        Vector<EstAcc<NodoPuzzle>> V = new Vector<>(4);
+    public Vector<Arco<NodoPuzzle>> obtener(Arco<NodoPuzzle> estado) {
+        Vector<Arco<NodoPuzzle>> V = new Vector<>(4);
 
         NodoPuzzle e;
 
-        for(int i = 0; i < 4; i++){
-            e = sucesor(estado, i);
-
-            if(!e.equals(estado)) V.add(new EstAcc<>(e, i));
+        for(Accion accion : AccionesPuzzle()){
+            e = sucesor(estado.getEstado(), accion);
+            if(!e.equals(estado.getEstado())){
+                Vector<Accion> path = estado.getPath();
+                path.addElement(accion);
+                V.add(new Arco<NodoPuzzle>(e, path, estado.costoTotal() + accion.cost()));
+            }
         }
 
         return V;

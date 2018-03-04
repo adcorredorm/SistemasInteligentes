@@ -3,5 +3,5 @@ package busqueda;
 import java.util.Vector;
 
 public interface Sucesor<T> {
-    Vector<EstAcc<T>> obtener( T estado );
+    Vector<Arco<T>> obtener( Arco<T> estado );
 }
