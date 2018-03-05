@@ -10,7 +10,7 @@ public class NodoPuzzle {
         int[][] M = new int[4][4];
 
         for(int i = 0; i < 4; i++){
-            for(int j = 0; j < 4; j++) M[i][j] = puzzle[i][j];
+            System.arraycopy(puzzle[i], 0, M[i], 0, 4);
         }
 
         return M;
@@ -20,13 +20,13 @@ public class NodoPuzzle {
         return new int[]{posx, posy};
     }
 
-    public NodoPuzzle(int[][] M, int posx, int posy){
+    NodoPuzzle(int[][] M, int posx, int posy){
         puzzle = M;
         this.posx = posx;
         this.posy = posy;
     }
 
-    public NodoPuzzle(){
+    NodoPuzzle(){
         this(Objetivo.Goal_puzzle, 3, 3);
     }
 

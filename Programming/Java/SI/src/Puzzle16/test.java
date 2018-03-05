@@ -2,33 +2,13 @@ package Puzzle16;
 
 import busqueda.*;
 
-public class test {
+public class test{
 
-    public static void imprimir_Matriz(int[][] M){
-        for(int[] x : M){
-            for(int y: x) System.out.print(Integer.toHexString(y).toUpperCase() + " ");
-            System.out.println();
-        }
-    }
-
-    private static void imprimir_Rta(NodoPuzzle inicial, Arco<NodoPuzzle> rta){
-
-        imprimir_Matriz(inicial.getPuzzle());
-
-        for(Accion a : rta.getPath()){
-            System.out.println();
-            inicial = Sucesores.sucesor(inicial, a);
-            imprimir_Matriz(inicial.getPuzzle());
-        }
-
-        System.out.println("\nNumero de movimientos realizados: " + rta.costoTotal());
-    }
-
-    public static NodoPuzzle generarNodoPrueba(int movimientos){
+    private static NodoPuzzle generarNodoPrueba(){
         int random;
         NodoPuzzle nodo = new NodoPuzzle();
 
-        for(int i = 0; i < movimientos; i++){
+        for(int i = 0; i < 15; i++){
             random = (int) Math.floor(Math.random()*4);
             nodo = Sucesores.sucesor(nodo, Sucesores.AccionesPuzzle().get(random));
         }
@@ -38,12 +18,11 @@ public class test {
 
     public static void main(String[] args) {
 
-        Sucesores<NodoPuzzle> s = new Sucesores<>();
+        Sucesores s = new Sucesores();
         Objetivo o = new Objetivo();
         int max_prof = 15;
-
         for(int i = 0; i < 15; i++){
-            NodoPuzzle nodo = generarNodoPrueba(15);
+            NodoPuzzle nodo = generarNodoPrueba();
 
             BFS<NodoPuzzle> bfs = new BFS<>(s, o, max_prof);
             DFS<NodoPuzzle> dfs = new DFS<>(s, o, max_prof);
@@ -62,12 +41,7 @@ public class test {
             System.out.println("Chino Rabon: " + chinoR.aplicar(nodo).costoTotal());
 
             System.out.println();
-
-            //imprimir_Rta(nodo, mh.aplicar(nodo));
-            //imprimir_Rta(nodo, bfs.aplicar(nodo));
         }
-
-
 
     }
 }
