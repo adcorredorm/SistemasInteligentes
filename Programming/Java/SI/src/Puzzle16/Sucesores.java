@@ -4,13 +4,13 @@ import busqueda.*;
 
 import java.util.Vector;
 
-public class Sucesores<T> implements Sucesor<NodoPuzzle>{
+public class Sucesores implements Sucesor<NodoPuzzle>{
 
     //public static final Accion NO_OP = new Accion("NO_OP", 0);
-    public static final Accion UP = new Accion("UP", 1);
-    public static final Accion DOWN = new Accion("DOWN", 1);
-    public static final Accion LEFT = new Accion("LEFT", 1);
-    public static final Accion RIGHT = new Accion("RIGHT", 1);
+    private static final Accion UP = new Accion("UP", 1);
+    private static final Accion DOWN = new Accion("DOWN", 1);
+    private static final Accion LEFT = new Accion("LEFT", 1);
+    private static final Accion RIGHT = new Accion("RIGHT", 1);
 
     public static final Accion[] AccionesPuzzle = new Accion[]{UP, DOWN, LEFT, RIGHT};
 
@@ -71,7 +71,7 @@ public class Sucesores<T> implements Sucesor<NodoPuzzle>{
             if(!e.equals(estado.getEstado())){
                 Vector<Accion> path = estado.getPath();
                 path.addElement(accion);
-                V.add(new Arco<NodoPuzzle>(e, path, estado.costoTotal() + accion.cost()));
+                V.add(new Arco<>(e, path, estado.costoTotal() + accion.cost()));
             }
         }
 
