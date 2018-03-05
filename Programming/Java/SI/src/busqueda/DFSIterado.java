@@ -19,6 +19,8 @@ public class DFSIterado<T> extends Busqueda<T>{
             prof++;
             dfs = new DFS<>(sucesor, objetivo, prof);
             actual = dfs.aplicar(inicial);
+            this.expanded_nodes += dfs.getExpanded_nodes();
+            this.max_obj_in_list += dfs.getMax_obj_in_list();
         }
 
         return actual;
