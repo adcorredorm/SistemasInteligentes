@@ -12,19 +12,13 @@ public class Sucesores<T> implements Sucesor<NodoPuzzle>{
     public static final Accion LEFT = new Accion("LEFT", 1);
     public static final Accion RIGHT = new Accion("RIGHT", 1);
 
-    public static Vector<Accion> AccionesPuzzle(){
-        Vector<Accion> acciones = new Vector<>(4);
-        acciones.addElement(UP);
-        acciones.addElement(DOWN);
-        acciones.addElement(LEFT);
-        acciones.addElement(RIGHT);
-        return acciones;
-    }
+    public static final Accion[] AccionesPuzzle = new Accion[]{UP, DOWN, LEFT, RIGHT};
 
     public static NodoPuzzle sucesor(NodoPuzzle estado, Accion action) {
 
         int[][] M = estado.getPuzzle();
         int[] pos = estado.getPos();
+        int n = estado.n();
 
         int aux = M[pos[0]][pos[1]];
 
@@ -39,7 +33,7 @@ public class Sucesores<T> implements Sucesor<NodoPuzzle>{
                 break;
 
             case "DOWN":
-                if(pos[0] == 3)   return estado;
+                if(pos[0] == n-1)   return estado;
                 else{
                     M[pos[0]][pos[1]] = M[++pos[0]][pos[1]];
                     M[pos[0]][pos[1]] = aux;
@@ -55,7 +49,7 @@ public class Sucesores<T> implements Sucesor<NodoPuzzle>{
                 break;
 
             case "RIGHT":
-                if(pos[1] == 3)   return estado;
+                if(pos[1] == n-1)   return estado;
                 else{
                     M[pos[0]][pos[1]] = M[pos[0]][++pos[1]];
                     M[pos[0]][pos[1]] = aux;
@@ -63,16 +57,16 @@ public class Sucesores<T> implements Sucesor<NodoPuzzle>{
                 break;
 
         }
-        return new NodoPuzzle(M, pos[0], pos[1]);
+        return new NodoPuzzle(n, M, pos[0], pos[1]);
     }
 
     @Override
     public Vector<Arco<NodoPuzzle>> obtener(Arco<NodoPuzzle> estado) {
-        Vector<Arco<NodoPuzzle>> V = new Vector<>(4);
+        Vector<Arco<NodoPuzzle>> V = new Vector<>(AccionesPuzzle.length);
 
         NodoPuzzle e;
 
-        for(Accion accion : AccionesPuzzle()){
+        for(Accion accion : AccionesPuzzle){
             e = sucesor(estado.getEstado(), accion);
             if(!e.equals(estado.getEstado())){
                 Vector<Accion> path = estado.getPath();
