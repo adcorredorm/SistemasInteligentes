@@ -53,13 +53,13 @@ public class test {
             AStar<NodoPuzzle> mh = new AStar<>(s, o, max_prof, new Manhattan());
             AStar<NodoPuzzle> chinoR = new AStar<>(s, o, max_prof, new ChinoR());
 
-            System.out.println(bfs.aplicar(nodo).costoTotal());
-            System.out.println(dfs.aplicar(nodo).costoTotal());
-            System.out.println(dfsi.aplicar(nodo).costoTotal());
-            System.out.println(cu.aplicar(nodo).costoTotal());
-
-            System.out.println(mh.aplicar(nodo).costoTotal());
-            System.out.println(chinoR.aplicar(nodo).costoTotal());
+            System.out.println("BFS: " + bfs.aplicar(nodo).costoTotal());
+            System.out.println("DFS: " + dfs.aplicar(nodo).costoTotal());
+            System.out.println("DFSI: " + dfsi.aplicar(nodo).costoTotal());
+            System.out.println("CU: " + cu.aplicar(nodo).costoTotal());
+            System.out.println("----");
+            System.out.println("Manhattan: " + mh.aplicar(nodo).costoTotal());
+            System.out.println("Chino Rabon: " + chinoR.aplicar(nodo).costoTotal());
 
             System.out.println();
 
