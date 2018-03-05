@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class PriorityBusqueda<T> implements ColeccionBusqueda<T>{
 
-    protected Arco[] heap;
+    protected Arco<T>[] heap;
     protected int size;
 
     @Override
@@ -31,19 +31,21 @@ public class PriorityBusqueda<T> implements ColeccionBusqueda<T>{
         Down();
     }
 
-    protected void Up(){
+    private void Up(){
         int index = size-1;
-        while (index > 0 && (heap[index].costoTotal() < heap[parent(index)].costoTotal())){
+
+        while (index > 0 && (evaluar(heap[index]) < evaluar(heap[parent(index)]))){
+
             swap(index, parent(index));
             index = parent(index);
         }
     }
 
-    protected void Down(){
+    private void Down(){
         int index = 0;
         while(childLeft(index) < size){
             int menor;
-            if(heap[childLeft(index)].costoTotal() <= heap[childRight(index)].costoTotal()){
+            if(evaluar(heap[childLeft(index)]) <= evaluar(heap[childRight(index)])){
                 menor =childLeft(index);
             }else menor = childRight(index);
 
@@ -55,13 +57,17 @@ public class PriorityBusqueda<T> implements ColeccionBusqueda<T>{
         }
     }
 
-    protected int childLeft(int index){ return (2*index + 1 < size)? 2*index + 1: index; }
+    protected double evaluar(Arco<T> arco){
+        return arco.costoTotal();
+    }
 
-    protected int childRight(int index){ return (2*index + 2 < size)? 2*index + 2: index; }
+    private int childLeft(int index){ return (2*index + 1 < size)? 2*index + 1: index; }
 
-    protected int parent(int index){ return (index-1)/2; }
+    private int childRight(int index){ return (2*index + 2 < size)? 2*index + 2: index; }
 
-    protected void swap(int a, int b){
+    private int parent(int index){ return (index-1)/2; }
+
+    private void swap(int a, int b){
         Arco aux = heap[a];
         heap[a] = heap[b];
         heap[b] = aux;
