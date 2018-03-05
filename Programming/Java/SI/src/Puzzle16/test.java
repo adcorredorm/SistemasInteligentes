@@ -4,13 +4,13 @@ import busqueda.*;
 
 public class test{
 
-    private static NodoPuzzle generarNodoPrueba(){
+    private static NodoPuzzle generarNodoPrueba(int n){
         int random;
-        NodoPuzzle nodo = new NodoPuzzle();
+        NodoPuzzle nodo = new NodoPuzzle(n);
 
         for(int i = 0; i < 15; i++){
             random = (int) Math.floor(Math.random()*4);
-            nodo = Sucesores.sucesor(nodo, Sucesores.AccionesPuzzle().get(random));
+            nodo = Sucesores.sucesor(nodo, Sucesores.AccionesPuzzle[random]);
         }
 
         return nodo;
@@ -42,21 +42,24 @@ public class test{
 
     public static void main(String[] args) {
         System.out.println("Calculando, por favor espere...\n");
+
+        int n = 4;
         Sucesores s = new Sucesores();
-        Objetivo o = new Objetivo();
+        Objetivo o = new Objetivo(n);
         int max_prof = 15;
         int[][] acum_expanded = new int[6][30], acum_nodesInList = new int[6][30];
+
         for(int i = 0; i < 30; i++) {
 
-            NodoPuzzle nodo = generarNodoPrueba();
+            NodoPuzzle nodo = generarNodoPrueba(n);
 
             BFS<NodoPuzzle> bfs = new BFS<>(s, o, max_prof);
             DFS<NodoPuzzle> dfs = new DFS<>(s, o, max_prof);
             DFSIterado<NodoPuzzle> dfsi = new DFSIterado<>(s, o, max_prof);
             CostoUniforme<NodoPuzzle> cu = new CostoUniforme<>(s, o, max_prof);
 
-            AStar<NodoPuzzle> mh = new AStar<>(s, o, max_prof, new Manhattan());
-            AStar<NodoPuzzle> chinoR = new AStar<>(s, o, max_prof, new ChinoR());
+            AStar<NodoPuzzle> mh = new AStar<>(s, o, max_prof, new Manhattan(n));
+            AStar<NodoPuzzle> chinoR = new AStar<>(s, o, max_prof, new Misplaced(n));
 
             bfs.aplicar(nodo).costoTotal();
             dfs.aplicar(nodo).costoTotal();
