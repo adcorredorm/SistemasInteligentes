@@ -46,7 +46,7 @@ public class test{
         Objetivo o = new Objetivo();
         int max_prof = 15;
         int[][] acum_expanded = new int[6][30], acum_nodesInList = new int[6][30];
-        for(int i = 0; i < 30; i++){
+        for(int i = 0; i < 30; i++) {
 
             NodoPuzzle nodo = generarNodoPrueba();
 
@@ -57,58 +57,27 @@ public class test{
 
             AStar<NodoPuzzle> mh = new AStar<>(s, o, max_prof, new Manhattan());
             AStar<NodoPuzzle> chinoR = new AStar<>(s, o, max_prof, new ChinoR());
-            System.out.println(i);
-            /*System.out.println("BFS: " + */bfs.aplicar(nodo).costoTotal();
-            /*System.out.println("DFS: " + */dfs.aplicar(nodo).costoTotal();
-            /*System.out.println("DFSI: " + */dfsi.aplicar(nodo).costoTotal();
-            /*System.out.println("CU: " + */cu.aplicar(nodo).costoTotal();
-            /*System.out.println("Heurísticas:");
-            /*System.out.println("Manhattan: " + */mh.aplicar(nodo).costoTotal();
-            /*System.out.println("Chino Rabon: " + */chinoR.aplicar(nodo).costoTotal();
-            //System.out.println("-----------------------------------------------------------------------");
-            //System.out.println();
-            acum_expanded[0][i] = bfs.getExpanded_nodes();
-            acum_expanded[1][i] = dfs.getExpanded_nodes();
-            acum_expanded[2][i] = dfsi.getExpanded_nodes();
-            acum_expanded[3][i] = cu.getExpanded_nodes();
-            acum_expanded[4][i] = mh.getExpanded_nodes();
-            acum_expanded[5][i] = chinoR.getExpanded_nodes();
-            acum_nodesInList[0][i] = bfs.getMax_obj_in_list();
-            acum_nodesInList[1][i] = dfs.getMax_obj_in_list();
-            acum_nodesInList[2][i] = dfsi.getMax_obj_in_list();
-            acum_nodesInList[3][i] = cu.getMax_obj_in_list();
-            acum_nodesInList[4][i] = mh.getMax_obj_in_list();
-            acum_nodesInList[5][i] = chinoR.getMax_obj_in_list();
+
+            bfs.aplicar(nodo).costoTotal();
+            dfs.aplicar(nodo).costoTotal();
+            dfsi.aplicar(nodo).costoTotal();
+            cu.aplicar(nodo).costoTotal();
+            mh.aplicar(nodo).costoTotal();
+            chinoR.aplicar(nodo).costoTotal();
+
+            System.out.println("\nCorrida #" + (i+1));
+            System.out.println("Nodos expandidos en BFS: " + bfs.getExpanded_nodes());
+            System.out.println("Máximo número de nodos en la lista para BFS: " + bfs.getMax_obj_in_list());
+            System.out.println("Nodos expandidos en DFS: " + dfs.getExpanded_nodes());
+            System.out.println("Máximo número de nodos en la lista para DFS: " + dfs.getMax_obj_in_list());
+            System.out.println("Nodos expandidos en DFSI: " + dfsi.getExpanded_nodes());
+            System.out.println("Máximo número de nodos en la lista para DFSI: " + dfsi.getMax_obj_in_list());
+            System.out.println("Nodos expandidos en Costo unitario: " + cu.getExpanded_nodes());
+            System.out.println("Máximo número de nodos en la lista para Costo unitario: " + cu.getMax_obj_in_list());
+            System.out.println("Nodos expandidos en A* (Manhattan): " + mh.getExpanded_nodes());
+            System.out.println("Máximo número de nodos en la lista para A* (Manhattan): " + mh.getMax_obj_in_list());
+            System.out.println("Nodos expandidos en A* (Missplaced Tiles): " + chinoR.getExpanded_nodes());
+            System.out.println("Máximo número de nodos en la lista para A* (Missplaced Tiles): " + chinoR.getMax_obj_in_list());
         }
-        double[][] statics = computeStatics(acum_expanded,acum_nodesInList);
-        System.out.printf("El promedio de máximo número de nodos en la lista para BFS es: %.4f \n", statics[0][0]);
-        System.out.printf("La desviación estarndar de máximo número de nodos en la lista para BFS es: %.4f \n", statics[1][0]);
-        System.out.printf("El promedio nodos expandidos para BFS es: %.4f \n", statics[2][0]);
-        System.out.printf("La desviación estandar de nodos expandidios para BFS es: %.4f \n", statics[3][0]);
-        System.out.printf("\n");
-        System.out.printf("El promedio de máximo número de nodos en la lista para DFS es: %.4f \n", statics[0][1]);
-        System.out.printf("La desviación estarndar de máximo número de nodos en la lista para DFS es: %.4f \n", statics[1][1]);
-        System.out.printf("El promedio nodos expandidos para DFS es: %.4f \n", statics[2][1]);
-        System.out.printf("La desviación estandar de nodos expandidios para DFS es: %.4f \n", statics[3][1]);
-        System.out.printf("\n");
-        System.out.printf("El promedio de máximo número de nodos en la lista para DFSI es: %.4f \n", statics[0][2]);
-        System.out.printf("La desviación estarndar de máximo número de nodos en la lista para DFSI es: %.4f \n", statics[1][2]);
-        System.out.printf("El promedio nodos expandidos para DFSI es: %.4f \n", statics[2][2]);
-        System.out.printf("La desviación estandar de nodos expandidios para DFSI es: %.4f \n", statics[3][2]);
-        System.out.printf("\n");
-        System.out.printf("El promedio de máximo número de nodos en la lista para Costo Uniforme es: %.4f \n", statics[0][3]);
-        System.out.printf("La desviación estarndar de máximo número de nodos en la lista para Costo Uniforme es: %.4f \n", statics[1][3]);
-        System.out.printf("El promedio nodos expandidos para Costo Uniforme es: %.4f \n", statics[2][3]);
-        System.out.printf("La desviación estandar de nodos expandidios para Costo Uniforme es: %.4f \n", statics[3][3]);
-        System.out.printf("\n");
-        System.out.printf("El promedio de máximo número de nodos en la lista para A* (Manhattan) es: %.4f \n", statics[0][4]);
-        System.out.printf("La desviación estarndar de máximo número de nodos en la lista para A* (Manhattan) es: %.4f \n", statics[1][4]);
-        System.out.printf("El promedio nodos expandidos para A* (Manhattan) es: %.4f \n", statics[2][4]);
-        System.out.printf("La desviación estandar de nodos expandidios para A* (Manhattan) es: %.4f \n", statics[3][4]);
-        System.out.printf("\n");
-        System.out.printf("El promedio de máximo número de nodos en la lista para A* (Missplaced Tiles) es: %.4f \n", statics[0][5]);
-        System.out.printf("La desviación estarndar de máximo número de nodos en la lista para A* (Missplaced Tiles) es: %.4f \n", statics[1][5]);
-        System.out.printf("El promedio nodos expandidos para A* (Missplaced Tiles) es: %.4f \n", statics[2][5]);
-        System.out.printf("La desviación estandar de nodos expandidios para A* (Missplaced Tiles) es: %.4f \n", statics[3][5]);
     }
 }
