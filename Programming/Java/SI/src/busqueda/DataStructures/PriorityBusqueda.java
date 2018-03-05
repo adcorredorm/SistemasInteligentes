@@ -49,7 +49,7 @@ public class PriorityBusqueda<T> implements ColeccionBusqueda<T>{
                 menor =childLeft(index);
             }else menor = childRight(index);
 
-            if(heap[menor].costoTotal() < heap[index].costoTotal()){
+            if(evaluar(heap[menor]) < evaluar(heap[index])){
                 swap(menor, index);
                 index = menor;
             }
