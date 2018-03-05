@@ -31,6 +31,11 @@ public class PriorityBusqueda<T> implements ColeccionBusqueda<T>{
         Down();
     }
 
+    @Override
+    public int size() {
+        return this.size;
+    }
+
     private void Up(){
         int index = size-1;
 
@@ -82,4 +87,8 @@ public class PriorityBusqueda<T> implements ColeccionBusqueda<T>{
     }
 
     public PriorityBusqueda(){ this(10); }
+
+    public int getSize() {
+        return size;
+    }
 }
