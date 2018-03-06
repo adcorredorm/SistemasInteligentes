@@ -41,7 +41,6 @@ public class test{
     }*/
 
     public static void main(String[] args) {
-        System.out.println("Calculando, por favor espere...\n");
 
         int n = 4;
         Sucesores s = new Sucesores();
@@ -68,7 +67,7 @@ public class test{
             mh.aplicar(nodo).costoTotal();
             chinoR.aplicar(nodo).costoTotal();
 
-            System.out.println("\nCorrida #" + (i+1));
+            System.out.println("\nEjecución #" + (i+1));
             System.out.println("Nodos expandidos en BFS: " + bfs.getExpanded_nodes());
             System.out.println("Máximo número de nodos en la lista para BFS: " + bfs.getMax_obj_in_list());
             System.out.println("Nodos expandidos en DFS: " + dfs.getExpanded_nodes());
