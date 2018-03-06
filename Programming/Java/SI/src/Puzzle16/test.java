@@ -16,7 +16,7 @@ public class test{
         return nodo;
     }
 
-    private static double[][] computeStatics(int[][] expanded, int[][] nodesInList){
+    /*private static double[][] computeStatics(int[][] expanded, int[][] nodesInList){
         double[] average_expanded = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
                 average_maxN = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
         for (int i = 0; i < 6; i++){
@@ -38,7 +38,7 @@ public class test{
             standD_nodes[i] /= 30;
         }
         return new double[][] {average_expanded, average_maxN, standD_expanded, standD_nodes};
-    }
+    }*/
 
     public static void main(String[] args) {
         System.out.println("Calculando, por favor espere...\n");
@@ -47,7 +47,7 @@ public class test{
         Sucesores s = new Sucesores();
         Objetivo o = new Objetivo(n);
         int max_prof = 15;
-        int[][] acum_expanded = new int[6][30], acum_nodesInList = new int[6][30];
+        //int[][] acum_expanded = new int[6][30], acum_nodesInList = new int[6][30];
 
         for(int i = 0; i < 30; i++) {
 
