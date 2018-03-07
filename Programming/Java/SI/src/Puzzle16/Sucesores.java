@@ -65,11 +65,12 @@ public class Sucesores implements Sucesor<NodoPuzzle>{
         Vector<Arco<NodoPuzzle>> V = new Vector<>(AccionesPuzzle.length);
 
         NodoPuzzle e;
+        Vector<Accion> path;
 
         for(Accion accion : AccionesPuzzle){
             e = sucesor(estado.getEstado(), accion);
-            if(!e.equals(estado.getEstado())){
-                Vector<Accion> path = estado.getPath();
+            if(!e.equals(estado.getEstado()) && !V.contains(e)){
+                path = estado.getPath();
                 path.addElement(accion);
                 V.add(new Arco<>(e, path, estado.costoTotal() + accion.cost()));
             }

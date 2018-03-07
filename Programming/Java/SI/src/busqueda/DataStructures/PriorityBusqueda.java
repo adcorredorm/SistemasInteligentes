@@ -73,7 +73,7 @@ public class PriorityBusqueda<T> implements ColeccionBusqueda<T>{
     private int parent(int index){ return (index-1)/2; }
 
     private void swap(int a, int b){
-        Arco aux = heap[a];
+        Arco<T> aux = heap[a];
         heap[a] = heap[b];
         heap[b] = aux;
     }

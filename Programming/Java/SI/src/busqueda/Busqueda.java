@@ -25,11 +25,13 @@ public abstract class Busqueda<T> {
         c.adicionar(new Arco<T>(inicial, new Vector<Accion>(),0.0));
         Arco<T> actual = c.obtener();
 
+        Vector<Arco<T>> h;
+
         while(!c.esvacia() && !objetivo.isGoal(actual.getEstado())){
             c.remover();
 
             if(actual.getPath().size() < max_prof){
-                Vector<Arco<T>> h = sucesor.obtener(actual);
+                h = sucesor.obtener(actual);
                 this.expanded_nodes++;
                 for( Arco<T> a:h ){
                     c.adicionar(a);

@@ -10,12 +10,13 @@ public class Misplaced implements Heuristica<NodoPuzzle> {
     @Override
     public double estimar(Arco<NodoPuzzle> estado) {
 
+        int[][] M = estado.getEstado().getPuzzle();
         double costo = 0;
-        int flag = 1;
+        int flag = 1, x;
 
         for(int i = 0; i < n; i++){
             for(int j= 0; j < n; j++){
-                int x = estado.getEstado().getPuzzle()[i][j];
+                x = M[i][j];
                 if(x != flag%(n*n)) costo++;
                 flag++;
             }
