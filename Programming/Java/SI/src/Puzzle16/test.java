@@ -9,15 +9,13 @@ public class test{
         NodoPuzzle nodo = new NodoPuzzle(n);
 
         for(int i = 0; i < 15; i++){
+
             random = (int) Math.floor(Math.random()*4);
-            //UP        0
-            //DOWN      1
-            //LEFT      2
-            //RIGHT     3
-            if(random == 0 && nodo.getPos()[1] == 0 ||
-                    random == 1 && nodo.getPos()[1] == (n-1) ||
-                    random == 2 && nodo.getPos()[0] == 0 ||
-                    random == 3 && nodo.getPos()[0] == (n-1)){
+            //UP-0, DOWN-1, LEFT-2, RIGHT-3
+            if(random == 0 && nodo.getPos()[0] == 0 ||
+                    random == 1 && nodo.getPos()[0] == (n-1) ||
+                    random == 2 && nodo.getPos()[1] == 0 ||
+                    random == 3 && nodo.getPos()[1] == (n-1)){
                 i--;
                 continue;
             }
@@ -52,9 +50,11 @@ public class test{
     }
 
     public static void main(String[] args) {
+
+
         System.out.println("Calculando, por favor espere...\n");
 
-        int n = 2;
+        int n = 4;
         int max_prof = 15;
 
         Sucesores s = new Sucesores();
@@ -76,10 +76,12 @@ public class test{
         long[] mhlist = new long[30];
         long[] mplist = new long[30];
 
+        NodoPuzzle nodoTest = generarNodoPrueba(n);
+
 
         for(int i = 0; i < 30; i++) {
 
-            NodoPuzzle nodo = generarNodoPrueba(n);
+            nodoTest = generarNodoPrueba(n);
 
             BFS<NodoPuzzle> bfs = new BFS<>(s, o, max_prof);
             DFS<NodoPuzzle> dfs = new DFS<>(s, o, max_prof);
@@ -92,19 +94,19 @@ public class test{
 
             System.out.println("\nIteracion " + (i+1));
 
-            NodoPuzzle.imprimir_Matriz(nodo.getPuzzle());
+            NodoPuzzle.imprimir_Matriz(nodoTest.getPuzzle());
 
-            bfs.aplicar(nodo);
+            bfs.aplicar(nodoTest);
             System.out.println("BFS Check");
-            dfs.aplicar(nodo);
+            dfs.aplicar(nodoTest);
             System.out.println("DFS Check");
-            dfsi.aplicar(nodo);
+            dfsi.aplicar(nodoTest);
             System.out.println("DFSI Check");
-            cu.aplicar(nodo);
+            cu.aplicar(nodoTest);
             System.out.println("Costo Uniforme Check");
-            mh.aplicar(nodo);
+            mh.aplicar(nodoTest);
             System.out.println("Manhattan Check");
-            mp.aplicar(nodo);
+            mp.aplicar(nodoTest);
             System.out.println("Misposed Check");
 
 
