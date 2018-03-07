@@ -51,7 +51,6 @@ public class test{
 
     public static void main(String[] args) {
 
-
         System.out.println("Calculando, por favor espere...\n");
 
         int n = 4;
@@ -76,7 +75,7 @@ public class test{
         long[] mhlist = new long[30];
         long[] mplist = new long[30];
 
-        NodoPuzzle nodoTest = generarNodoPrueba(n);
+        NodoPuzzle nodoTest;
 
 
         for(int i = 0; i < 30; i++) {
@@ -87,16 +86,14 @@ public class test{
             DFS<NodoPuzzle> dfs = new DFS<>(s, o, max_prof);
             DFSIterado<NodoPuzzle> dfsi = new DFSIterado<>(s, o, max_prof);
             CostoUniforme<NodoPuzzle> cu = new CostoUniforme<>(s, o, max_prof);
-
             AStar<NodoPuzzle> mh = new AStar<>(s, o, max_prof, m);
             AStar<NodoPuzzle> mp = new AStar<>(s, o, max_prof, p);
 
 
             System.out.println("\nIteracion " + (i+1));
 
-            NodoPuzzle.imprimir_Matriz(nodoTest.getPuzzle());
-
             bfs.aplicar(nodoTest);
+            System.gc();
             System.out.println("BFS Check");
             dfs.aplicar(nodoTest);
             System.out.println("DFS Check");

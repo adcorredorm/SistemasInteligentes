@@ -4,32 +4,31 @@ import busqueda.Goal;
 
 public class Objetivo implements Goal<NodoPuzzle>{
 
-    private int[][] Goal_puzzle;
+    private int[] Goal_puzzle;
     private int n;
 
-    public static int[][] GoalPuzzle(int n){
+    public static int[] GoalPuzzle(int n){
 
-        int[][] M = new int[n][n];
-        int count = 1;
+        byte[] obj = new byte[16];
+        for(byte i = 1; i < 16; i++) obj[i-1] = i;
+        int[] goal = new int[4];
 
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < n; j++){
-                M[i][j] = count%(n * n);
-                count ++;
+        StringBuilder S;
+        for(int i = 0; i < 4; i++){
+            S = new StringBuilder();
+            for(int j = 0; j < 4; j++){
+                S.append(NodoPuzzle.toBin(obj[4*i + j], 4));
             }
+            goal[i] = NodoPuzzle.castBin(S.toString());
         }
-
-        return M;
+        return goal;
     }
 
     @Override
     public boolean isGoal(NodoPuzzle estado) {
 
-        int[][] M = estado.getPuzzle();
-
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < n; j++) if(M[i][j] != Goal_puzzle[i][j]) return false;
-        }
+        int[] V = estado.getPuzzle();
+        for(int i = 0; i < n; i++) if(V[i] != Goal_puzzle[i]) return false;
         return true;
     }
 

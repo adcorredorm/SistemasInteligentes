@@ -87,8 +87,4 @@ public class PriorityBusqueda<T> implements ColeccionBusqueda<T>{
     }
 
     public PriorityBusqueda(){ this(10); }
-
-    public int getSize() {
-        return size;
-    }
 }
