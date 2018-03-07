@@ -10,6 +10,17 @@ public class test{
 
         for(int i = 0; i < 15; i++){
             random = (int) Math.floor(Math.random()*4);
+            //UP        0
+            //DOWN      1
+            //LEFT      2
+            //RIGHT     3
+            if(random == 0 && nodo.getPos()[1] == 0 ||
+                    random == 1 && nodo.getPos()[1] == (n-1) ||
+                    random == 2 && nodo.getPos()[0] == 0 ||
+                    random == 3 && nodo.getPos()[0] == (n-1)){
+                i--;
+                continue;
+            }
             nodo = Sucesores.sucesor(nodo, Sucesores.AccionesPuzzle[random]);
         }
 
