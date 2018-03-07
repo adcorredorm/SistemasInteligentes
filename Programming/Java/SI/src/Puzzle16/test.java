@@ -78,12 +78,12 @@ public class test{
         NodoPuzzle nodoTest;
 
 
-        for(int i = 0; i < 30; i++) {
+        for(int i = 0; i < 1; i++) {
 
             nodoTest = generarNodoPrueba(n);
 
             BFS<NodoPuzzle> bfs = new BFS<>(s, o, max_prof);
-            DFS<NodoPuzzle> dfs = new DFS<>(s, o, max_prof);
+            DFS<NodoPuzzle> dfs = new DFS<>(s, o, 2*max_prof);
             DFSIterado<NodoPuzzle> dfsi = new DFSIterado<>(s, o, max_prof);
             CostoUniforme<NodoPuzzle> cu = new CostoUniforme<>(s, o, max_prof);
             AStar<NodoPuzzle> mh = new AStar<>(s, o, max_prof, m);
@@ -123,6 +123,34 @@ public class test{
 
             System.gc();
         }
+
+        //System.out.println("It \t\t BFS \t\t DFS \t\t DFSI \t\t CU \t\t MH \t\t MP");
+        /*System.out.println("Nodos expandidos");
+        for(int i = 0; i < 30; i++){
+            System.out.println(
+                    (i+1) + ":\t"
+                            + bfsexpand[i] + "\t"
+                            + dfsexpand[i] + "\t"
+                            + dfsiexpand[i] + "\t"
+                            + cuexpand[i] + "\t"
+                            + mhexpand[i] + "\t"
+                            + mpexpand[i] + "\t"
+            );
+        }
+
+        System.out.println("Max Nodos en lista");
+
+        for(int i = 0; i < 30; i++){
+            System.out.println(
+                    (i+1) + ":\t"
+                            + bfslist[i] + "\t"
+                            + dfslist[i] + "\t"
+                            + dfsilist[i] + "\t"
+                            + culist[i] + "\t"
+                            + mhlist[i] + "\t"
+                            + mplist[i] + "\t"
+            );
+        }*/
 
         System.out.println("\nBreath First Search:");
         for(long b : bfsexpand){

@@ -81,16 +81,40 @@ public class Sucesores implements Sucesor<NodoPuzzle>{
         return value;
     }
 
+    private static Accion contraria(Accion accion){
+        switch (accion.getCode()){
+            case "UP":
+                return DOWN;
+
+            case "DOWN":
+                return UP;
+
+            case "LEFT":
+                return RIGHT;
+
+            case "RIGHT":
+                return LEFT;
+
+        }
+        return null;
+    }
+
     @Override
     public Vector<Arco<NodoPuzzle>> obtener(Arco<NodoPuzzle> estado) {
         Vector<Arco<NodoPuzzle>> V = new Vector<>(AccionesPuzzle.length);
 
         NodoPuzzle e;
         Vector<Accion> path;
+        Accion last;
+        try{
+            last = estado.getPath().lastElement();
+        }catch (Exception ex){
+            last = null;
+        }
 
         for(Accion accion : AccionesPuzzle){
             e = sucesor(estado.getEstado(), accion);
-            if(!e.equals(estado.getEstado())){
+            if(!e.equals(estado.getEstado()) && !contraria(accion).equals(last)){
                 path = estado.getPath();
                 path.addElement(accion);
                 V.add(new Arco<>(e, path, estado.costoTotal() + accion.cost()));
