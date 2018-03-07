@@ -22,7 +22,7 @@ public class NodoPuzzle {
         System.out.println("\nNumero de movimientos realizados: " + rta.costoTotal());
     }
 
-    private static void imprimir_Matriz(int[][] M){
+    public static void imprimir_Matriz(int[][] M){
         for(int[] x : M){
             for(int y: x) System.out.print(Integer.toString(y, x.length * x.length).toUpperCase() + " ");
             System.out.println();
@@ -31,11 +31,7 @@ public class NodoPuzzle {
 
     public int[][] getPuzzle() {
         int[][] M = new int[n][n];
-
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < n; j++) M[i][j] = puzzle[i][j];
-        }
-
+        System.arraycopy(puzzle, 0, M, 0, n);
         return M;
     }
 

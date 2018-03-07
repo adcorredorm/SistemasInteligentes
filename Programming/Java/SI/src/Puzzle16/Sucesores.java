@@ -25,7 +25,7 @@ public class Sucesores implements Sucesor<NodoPuzzle>{
         switch (action.getCode()){
 
             case "UP":
-                if(pos[0] == 0)   return estado;
+                if(pos[0] == 0)   return sucesor(estado, DOWN);
                 else{
                     M[pos[0]][pos[1]] = M[--pos[0]][pos[1]];
                     M[pos[0]][pos[1]] = aux;
@@ -33,7 +33,7 @@ public class Sucesores implements Sucesor<NodoPuzzle>{
                 break;
 
             case "DOWN":
-                if(pos[0] == n-1)   return estado;
+                if(pos[0] == n-1)   return sucesor(estado, UP);
                 else{
                     M[pos[0]][pos[1]] = M[++pos[0]][pos[1]];
                     M[pos[0]][pos[1]] = aux;
@@ -41,7 +41,7 @@ public class Sucesores implements Sucesor<NodoPuzzle>{
                 break;
 
             case "LEFT":
-                if(pos[1] == 0)   return estado;
+                if(pos[1] == 0)   return sucesor(estado, RIGHT);
                 else{
                     M[pos[0]][pos[1]] = M[pos[0]][--pos[1]];
                     M[pos[0]][pos[1]] = aux;
@@ -49,7 +49,7 @@ public class Sucesores implements Sucesor<NodoPuzzle>{
                 break;
 
             case "RIGHT":
-                if(pos[1] == n-1)   return estado;
+                if(pos[1] == n-1)   return sucesor(estado, LEFT);
                 else{
                     M[pos[0]][pos[1]] = M[pos[0]][++pos[1]];
                     M[pos[0]][pos[1]] = aux;

@@ -7,15 +7,15 @@ public abstract class Busqueda<T> {
     protected Sucesor<T> sucesor;
     protected Goal<T> objetivo;
     protected int max_prof;
-    protected int max_obj_in_list;
-    protected int expanded_nodes;
+    protected long max_obj_in_list;
+    protected long expanded_nodes;
 
     public Busqueda(Sucesor<T> sucesor, Goal<T> objetivo, int max_prof ){
         this.sucesor = sucesor;
         this.objetivo = objetivo;
         this.max_prof = max_prof;
-        this.max_obj_in_list = 1;
-        this.expanded_nodes = 0;
+        this.max_obj_in_list = 1L;
+        this.expanded_nodes = 0L;
     }
 
     protected abstract ColeccionBusqueda<T> coleccion();
@@ -42,11 +42,11 @@ public abstract class Busqueda<T> {
         return null;
     }
 
-    public int getMax_obj_in_list() {
+    public long getMax_obj_in_list() {
         return max_obj_in_list;
     }
 
-    public int getExpanded_nodes() {
+    public long getExpanded_nodes() {
         return expanded_nodes;
     }
 }
