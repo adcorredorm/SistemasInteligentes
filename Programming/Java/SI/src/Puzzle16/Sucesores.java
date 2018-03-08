@@ -16,23 +16,20 @@ public class Sucesores implements Sucesor<NodoPuzzle>{
 
     public static NodoPuzzle sucesor(NodoPuzzle estado, Accion action) {
 
-        int[] V = estado.getPuzzle();
-        int[] pos = estado.getPos();
+        long puzzle = estado.getPuzzle();
         int n = estado.n();
+        int[] pos = estado.getPos();
+        int zeroPos = 4*pos[0]*n + pos[1]*n;
 
         String auxS;
-        int auxI;
-
 
         switch (action.getCode()){
 
             case "UP":
                 if(pos[0] == 0)   return estado;
                 else{
-                    auxS = NodoPuzzle.toBin(V[pos[0]-1], 16).substring(pos[1]*4, pos[1]*4 + 4);
-                    auxI = relativeValue(auxS, ((4*4)-1)-(pos[1]*4)); //Estas formulitas salieron de prueba y error
-                    V[pos[0]-1] -= auxI;
-                    V[pos[0]] += auxI;
+                    auxS = NodoPuzzle.toBin(puzzle, 64).substring(4*(pos[0]-1)*n + pos[1]*n, 4*(pos[0]-1)*n + pos[1]*n + 4);
+                    puzzle = moveValue(puzzle, auxS, 4*(pos[0]-1)*n + pos[1]*n, zeroPos);
                     pos[0]--;
                 }
                 break;
@@ -40,10 +37,8 @@ public class Sucesores implements Sucesor<NodoPuzzle>{
             case "DOWN":
                 if(pos[0] == n-1)   return estado;
                 else{
-                    auxS = NodoPuzzle.toBin(V[pos[0]+1], 16).substring(pos[1]*4, pos[1]*4 + 4);
-                    auxI = relativeValue(auxS, ((4*4)-1)-(pos[1]*4));
-                    V[pos[0]+1] -= auxI;
-                    V[pos[0]] += auxI;
+                    auxS = NodoPuzzle.toBin(puzzle, 64).substring(4*(pos[0]+1)*n + pos[1]*n, 4*(pos[0]+1)*n + pos[1]*n + 4);
+                    puzzle = moveValue(puzzle, auxS, 4*(pos[0]+1)*n + pos[1]*n, zeroPos);
                     pos[0]++;
                 }
                 break;
@@ -51,9 +46,8 @@ public class Sucesores implements Sucesor<NodoPuzzle>{
             case "LEFT":
                 if(pos[1] == 0)   return estado;
                 else{
-                    auxS = NodoPuzzle.toBin(V[pos[0]], 16).substring(pos[1]*4 -4, pos[1]*4);
-                    V[pos[0]] -= relativeValue(auxS, ((4*4)-1)-((4*pos[1])-4));
-                    V[pos[0]] += relativeValue(auxS, ((4*4)-1)-(4*pos[1]));
+                    auxS = NodoPuzzle.toBin(puzzle, 64).substring(zeroPos - 4, zeroPos);
+                    puzzle = moveValue(puzzle, auxS, zeroPos-4, zeroPos);
                     pos[1]--;
                 }
                 break;
@@ -61,24 +55,21 @@ public class Sucesores implements Sucesor<NodoPuzzle>{
             case "RIGHT":
                 if(pos[1] == n-1)   return estado;
                 else{
-                    auxS = NodoPuzzle.toBin(V[pos[0]], 16).substring(pos[1]*4 +4, pos[1]*4 +(2*4));
-                    V[pos[0]] -= relativeValue(auxS, ((4*4)-1)-((4*pos[1])+4));
-                    V[pos[0]] += relativeValue(auxS, ((4*4)-1)-(4*pos[1]));
+                    auxS = NodoPuzzle.toBin(puzzle, 64).substring(zeroPos + 4, zeroPos + 8);
+                    puzzle = moveValue(puzzle, auxS, zeroPos+4, zeroPos);
                     pos[1]++;
                 }
                 break;
 
         }
-        return new NodoPuzzle(n, V, pos[0], pos[1]);
+        return new NodoPuzzle(n, puzzle, pos[0], pos[1]);
     }
 
-    private static int relativeValue(String bin, int pot_inicial){
-        int value = 0;
-        for(char v: bin.toCharArray()){
-            if(v == '1') value += Math.pow(2, pot_inicial);
-            pot_inicial--;
-        }
-        return value;
+    private static long moveValue(long puzzle, String bin, int pos_ini, int zeroPos){
+        StringBuilder ini = new StringBuilder(bin), f = new StringBuilder(bin);
+        while(ini.length() < 64-pos_ini) ini.append("0");
+        while(f.length() < 64-zeroPos) f.append("0");
+        return puzzle - NodoPuzzle.castBin(ini.toString()) + NodoPuzzle.castBin(f.toString());
     }
 
     private static Accion contraria(Accion accion){

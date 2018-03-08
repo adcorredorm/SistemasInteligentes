@@ -6,31 +6,34 @@ import busqueda.Arco;
 public class NodoPuzzle {
 
     private int n;
-    private int[] puzzle;
+    private long puzzle;
     private int posf, posc;
 
-    public static String toBin(int num, int len){
-        StringBuilder bin = new StringBuilder(Integer.toString(num, 2));
+    public static String toBin(long num, int len){
+        StringBuilder bin = new StringBuilder(Long.toUnsignedString(num, 2));
         while(bin.length() < len) bin.insert(0, '0');
         return bin.toString();
     }
 
-    public static int castBin(String bin){
-        int cant = 0;
-        for(int i = 0; i < bin.length(); i++){
-            if(bin.charAt(i) == '1') cant += Math.pow(2, bin.length()-i-1);
-        }
-        return cant;
+    public static long castBin(String bin){
+        return Long.parseUnsignedLong(bin, 2);
     }
 
     public static void imprimir_Path(NodoPuzzle inicial, Arco<NodoPuzzle> rta){
 
-        //imprimir_Matriz(inicial.getPuzzle());
+        for(byte[] f : inicial.getMatriz()){
+            for(byte e: f) System.out.print(Integer.toHexString(e).toUpperCase() + " ");
+            System.out.println();
+        }
+        System.out.println();
 
         for(Accion a : rta.getPath()){
-            System.out.println();
             inicial = Sucesores.sucesor(inicial, a);
-          //  imprimir_Matriz(inicial.getPuzzle());
+            for(byte[] f : inicial.getMatriz()){
+                for(byte e: f) System.out.print(Integer.toHexString(e).toUpperCase() + " ");
+                System.out.println();
+            }
+            System.out.println();
         }
 
         System.out.println("\nNumero de movimientos realizados: " + rta.costoTotal());
@@ -38,18 +41,17 @@ public class NodoPuzzle {
 
     public byte[][] getMatriz(){
         byte[][] M = new byte[n][n];
+        String p = toBin(puzzle, 4 * n*n);
         for(int i = 0; i < n; i++){
             for(int j = 0; j < n; j++){
-                M[i][j] = (byte)castBin(toBin(puzzle[i],16).substring(j*n,j*n +n));
+                M[i][j] = (byte)castBin(p.substring(4*i*n + j*n,4*i*n + j*n + n));
             }
         }
         return M;
     }
 
-    public int[] getPuzzle() {
-        int[] V = new int[n];
-        for(int i = 0; i < n; i++)V[i] = puzzle[i];
-        return V;
+    public long getPuzzle() {
+        return puzzle;
     }
 
     public int[] getPos() {
@@ -58,9 +60,10 @@ public class NodoPuzzle {
 
     public int n(){ return n;}
 
-    public NodoPuzzle(int n, int[] V, int posf, int posc){
+    public NodoPuzzle(int n, long puzzle, int posf, int posc){
+        assert(n <= 4);
         this.n = n;
-        this.puzzle = V;
+        this.puzzle = puzzle;
         this.posf = posf;
         this.posc = posc;
     }

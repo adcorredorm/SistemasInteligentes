@@ -4,11 +4,11 @@ import busqueda.*;
 
 public class test{
 
-    private static NodoPuzzle generarNodoPrueba(int n){
+    private static NodoPuzzle generarNodoPrueba(int n, int movimientos){
         int random;
         NodoPuzzle nodo = new NodoPuzzle(n);
 
-        for(int i = 0; i < 15; i++){
+        for(int i = 0; i < movimientos; i++){
 
             random = (int) Math.floor(Math.random()*4);
             //UP-0, DOWN-1, LEFT-2, RIGHT-3
@@ -78,9 +78,9 @@ public class test{
         NodoPuzzle nodoTest;
 
 
-        for(int i = 0; i < 1; i++) {
+        for(int i = 0; i < 30; i++) {
 
-            nodoTest = generarNodoPrueba(n);
+            nodoTest = generarNodoPrueba(n, max_prof);
 
             BFS<NodoPuzzle> bfs = new BFS<>(s, o, max_prof);
             DFS<NodoPuzzle> dfs = new DFS<>(s, o, 2*max_prof);
@@ -123,34 +123,6 @@ public class test{
 
             System.gc();
         }
-
-        //System.out.println("It \t\t BFS \t\t DFS \t\t DFSI \t\t CU \t\t MH \t\t MP");
-        /*System.out.println("Nodos expandidos");
-        for(int i = 0; i < 30; i++){
-            System.out.println(
-                    (i+1) + ":\t"
-                            + bfsexpand[i] + "\t"
-                            + dfsexpand[i] + "\t"
-                            + dfsiexpand[i] + "\t"
-                            + cuexpand[i] + "\t"
-                            + mhexpand[i] + "\t"
-                            + mpexpand[i] + "\t"
-            );
-        }
-
-        System.out.println("Max Nodos en lista");
-
-        for(int i = 0; i < 30; i++){
-            System.out.println(
-                    (i+1) + ":\t"
-                            + bfslist[i] + "\t"
-                            + dfslist[i] + "\t"
-                            + dfsilist[i] + "\t"
-                            + culist[i] + "\t"
-                            + mhlist[i] + "\t"
-                            + mplist[i] + "\t"
-            );
-        }*/
 
         System.out.println("\nBreath First Search:");
         for(long b : bfsexpand){
