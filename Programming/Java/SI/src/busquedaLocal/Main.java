@@ -1,0 +1,49 @@
+package busquedaLocal;
+
+public class Main<T> {
+
+    private Reemplazo<T> reemplazo;
+    private Fitness<T> f;
+    private Semilla<T> semilla;
+    private Vecino<T> vecino;
+
+    public Main(Reemplazo<T> r, Fitness<T> f, Semilla<T> semilla, Vecino<T> vecino){
+        this.reemplazo = r;
+        this.f = f;
+        this.semilla = semilla;
+        this.vecino = vecino;
+    }
+
+    public String array_print(double[] X){
+        StringBuilder print = new StringBuilder();
+        for(double x: X){
+            print.append(x);
+            print.append(',');
+        }
+        return print.toString();
+    }
+
+    public void aplicar(){
+        T x = semilla.aplicar();
+        double fx = f.aplicar(x);
+        int max_iter = 1000;
+        for(int i = 0; i < max_iter; i++){
+            T y = vecino.aplicar(x);
+            double fy = f.aplicar(y);
+            if(reemplazo.reemplazar(x, fx, y, fy)){
+                x = y;
+                fx = fy;
+            }
+            System.out.print(i);
+            System.out.print(' ');
+            System.out.println(fx);
+            //System.out.print(' ');
+            //System.out.println(array_print(x));
+        }
+    }
+
+    public static void main(String[] args) {
+        new Main(new TempladoSimulado<double[]>(), new Esfera(), new SemillaRn(10), new VecinoGaussiano(0.02)).aplicar();
+    }
+
+}

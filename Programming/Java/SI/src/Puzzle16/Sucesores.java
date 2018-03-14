@@ -6,7 +6,7 @@ import java.util.Vector;
 
 public class Sucesores implements Sucesor<NodoPuzzle>{
 
-    //public static final Accion NO_OP = new Accion("NO_OP", 0);
+    public static final Accion NO_OP = new Accion("NO_OP", 0);
     public static final Accion UP = new Accion("UP", 1);
     public static final Accion DOWN = new Accion("DOWN", 1);
     public static final Accion LEFT = new Accion("LEFT", 1);
@@ -87,7 +87,7 @@ public class Sucesores implements Sucesor<NodoPuzzle>{
                 return LEFT;
 
         }
-        return null;
+        return NO_OP;
     }
 
     @Override
