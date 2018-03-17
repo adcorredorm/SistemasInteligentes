@@ -14,12 +14,14 @@ public class Main<T> {
         this.vecino = vecino;
     }
 
-    public String array_print(double[] X){
-        StringBuilder print = new StringBuilder();
-        for(double x: X){
-            print.append(x);
+    public static String array_print(int[] X){
+        StringBuilder print = new StringBuilder("[");
+        for(int i = 0; i < X.length-1; i++){
+            print.append(X[i]);
             print.append(',');
         }
+        print.append(X[X.length-1]);
+        print.append(']');
         return print.toString();
     }
 
@@ -36,9 +38,9 @@ public class Main<T> {
             }
             System.out.print(i);
             System.out.print(' ');
-            System.out.println(fx);
-            //System.out.print(' ');
-            //System.out.println(array_print(x));
+            System.out.print(fx);
+            System.out.print(' ');
+            System.out.println(array_print((int[]) x));
         }
     }
 
