@@ -38,9 +38,9 @@ public class Main<T> {
             }
             System.out.print(i);
             System.out.print(' ');
-            System.out.print(fx);
-            System.out.print(' ');
-            System.out.println(array_print((int[]) x));
+            System.out.println(fx);
+            //System.out.print(' ');
+            //System.out.println(array_print((int[]) x));
         }
     }
 

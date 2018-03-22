@@ -4,7 +4,7 @@ import busquedaLocal.Vecino;
 
 import java.util.Vector;
 
-public class Nuevo implements Vecino<int[]> {
+public class VecinoInformado implements Vecino<int[]> {
 
     @Override
     public int[] aplicar(int[] x) {
