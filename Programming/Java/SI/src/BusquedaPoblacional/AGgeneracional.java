@@ -61,6 +61,7 @@ public class AGgeneracional<T> {
     }
 
     public static void main(String[] args) {
-        new AGgeneracional<int[]>(100, new Torneo(), new CruceDamas(), new VecinoInformado() ,new Inicial(8), new Atacadas()).aplicar();
+        new AGgeneracional<int[]>(100, new Torneo(), new CruceDamas(), new VecinoInformado()
+                ,new Inicial(8), new Atacadas()).aplicar();
     }
 }
