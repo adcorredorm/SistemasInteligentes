@@ -52,3 +52,11 @@ maxl([H|T],M):- maxl(T,M1), max(M1,H,M).
 
 lista([],[]).
 lista([_|T],[0|I]) :- lista(T,I).
+
+
+insertar(H,X,Y) :- insertart(H,[],X,[],Y).
+insertart(H,L,[],A,[Z|A]) :- append(L,[H],Z).
+insertart(H,L,[HR|TR],A,Y) :- append(L,[H|[HR|TR]],Z), append(L,[HR],NL), insertart(H,NL,TR,[Z|A],Y).
+
+ins2(_,[],[]).
+ins2(H, [F|R], [[H|F]|Z]) :- ins2(H,R,Z).
