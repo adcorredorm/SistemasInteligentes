@@ -70,6 +70,20 @@ separar(_,[],[],[]).
 separar(X,[A|B],[A|Men],May) :- A =< X, separar(X, B, Men, May).
 separar(X,[A|B],Men,[A|May]) :- A > X, separar(X, B, Men, May).
 
+%merge
+separarmitad(L,L1,L2) :- separarmitadaux(L,[],[],L1,L2).
+separarmitadaux([],L1,L2,L1,L2).
+separarmitadaux([H|T],L1,L2,LL1,LL2) :- separarmitadaux(T,L2,[H|L1],LL1,LL2).
+
+fusion([],L,L).
+fusion(L,[],L).
+fusion([H1|T1],[H2|T2],[H1|L]) :- H1 =< H2, fusion(T1,[H2|T2],L).
+fusion([H1|T1],[H2|T2],[H2|L]) :- H1 > H2, fusion([H1|T1],T2,L).
+
+ordenar([],[]).
+ordenar([A],[A]).
+ordenar(L,O) :- separarmitad(L,L1,L2), ordenar(L1,O1), ordenar(L2,O2), fusion(O1,O2,O).
+
 %---Permutacion
 permutar([],[]).
 permutar([E],[[E]]).
